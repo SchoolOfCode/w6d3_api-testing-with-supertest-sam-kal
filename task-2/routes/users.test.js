@@ -26,3 +26,17 @@ describe("get users", () => {
     );
   });
 });
+
+describe(`get user by id 4`, () => {
+  test(`returns status code of 200`, async () => {
+    const res = await request(app).get("/users/4");
+    expect(res.statusCode).toBe(200);
+  });
+  test(`checks if the response's body is an object with the structure { success: true, payload: { id: 4, username: any string } }`, async () => {
+    const res = await request(app).get("/users/4");
+    expect(res.body).toEqual({
+      success: true,
+      payload: { id: 4, username: expect.any(String) },
+    });
+  });
+});
