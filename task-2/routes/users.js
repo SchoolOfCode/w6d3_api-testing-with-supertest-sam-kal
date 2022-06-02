@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { getUsers, getUserById } from "../models/users.js";
 
+
 const router = Router();
 
 router.get("/", (req, res) => {
