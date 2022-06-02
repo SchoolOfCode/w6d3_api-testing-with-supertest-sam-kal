@@ -27,7 +27,7 @@ describe("get users", () => {
   });
 });
 
-describe(`get user by id 4`, () => {
+describe(`get user with id 4`, () => {
   test(`returns status code of 200`, async () => {
     const res = await request(app).get("/users/4");
     expect(res.statusCode).toBe(200);
@@ -37,6 +37,20 @@ describe(`get user by id 4`, () => {
     expect(res.body).toEqual({
       success: true,
       payload: { id: 4, username: expect.any(String) },
+    });
+  });
+});
+
+describe(`get user with id 99`, () => {
+  test(`returns response code of 404`, async () => {
+    const res = await request(app).get("/users/99");
+    expect(res.statusCode).toBe(404);
+  });
+  test(`checks if response's body s an object with the structure { success: false, reason: "No user with ID 99 was found" }`, async () => {
+    const res = await request(app).get("/users/99");
+    expect(res.body).toMatchObject({
+      success: false,
+      reason: `No user with ID 99 was found.`,
     });
   });
 });

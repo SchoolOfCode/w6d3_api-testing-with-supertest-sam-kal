@@ -10,6 +10,4 @@ app.use(express.json());
 
 app.use("/users", usersRouter);
 
-request(app).get("/users").expect(200).expect();
-
 export default app;
