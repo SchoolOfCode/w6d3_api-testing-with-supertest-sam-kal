@@ -29,15 +29,36 @@ describe(`get user by username`, () => {
       success: true,
       payload: [
         {
-          id: 92,
-          username: "Catherine",
+          id: expect.any(Number),
+          username: expect.any(String),
         },
       ],
     });
   });
 });
-// GET /users/:id
 
+// GET /users/:id
+describe(`get user by id`, () => {
+  test(`Given a id number, return a user with that id`, async () => {
+    const res = await request(app).get("/users/10");
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({
+      success: true,
+      payload: {
+        id: expect.any(Number),
+        username: expect.any(String),
+      },
+    });
+  });
+  test(`Given an incorrect id number, returns 404 and an error message`, async () => {
+    const res = await request(app).get("/users/201");
+    expect(res.statusCode).toBe(404);
+    expect(res.body).toEqual({
+      success: false,
+      reason: `No user with that ID 201 was found!`,
+    });
+  });
+});
 // POST /users
 
 // DELETE /users/:id
