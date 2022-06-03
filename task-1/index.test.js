@@ -19,6 +19,11 @@ test("Has the structure { success: true }", function () {
   const actual = {
     success: true,
   };
+  const expected = {
+    success: true,
+  };
+
+  expect(actual).toStrictEqual(expected);
 });
 
 /**
@@ -38,6 +43,12 @@ test("Has the structure { copiesSold: any number, title: any string }", function
     copiesSold: 5014,
     title: "THE LIGHTHOUSE (1984)",
   };
+
+  const expected = {
+    copiesSold: expect.any(Number),
+    title: expect.any(String),
+  };
+  expect(actual).toStrictEqual(expected);
 });
 
 /**
@@ -55,8 +66,29 @@ test("Has the structure { copiesSold: any number, title: any string }", function
  * Since `getAuthentication` is asynchronous, you may need to read up on how to write an asynchronous test in Jest: https://jestjs.io/docs/asynchronous
  *
  * The test has been partially written for you, but you'll need to complete it.
+ * 
+ * test("Has the structure { success: true, payload: { hasAuthenticated: true, isAdmin: false, userId: any number } }", async function () {
+  async function getAuthentication() {
+    return await {
+      success: true,
+      payload: {
+        hasAuthenticated: true,
+        isAdmin: false,
+        userId: 125095,
+      },
+    };
+  }
+  expect({
+    success: true,
+    payload: {
+      hasAuthenticated: true,
+      isAdmin: false,
+      userId: 125095,
+    },
+  }).toMatchObject(getAuthentication());
+});
  */
-test("Has the structure { success: true, payload: { hasAuthenticated: true, isAdmin: false, userId: any number } }", function () {
+test("Has the structure { success: true, payload: { hasAuthenticated: true, isAdmin: false, userId: any number } }", async function () {
   async function getAuthentication() {
     return {
       success: true,
@@ -67,6 +99,14 @@ test("Has the structure { success: true, payload: { hasAuthenticated: true, isAd
       },
     };
   }
+  expect(await getAuthentication()).toMatchObject({
+    success: true,
+    payload: {
+      hasAuthenticated: true,
+      isAdmin: false,
+      userId: expect.any(Number),
+    },
+  });
 });
 
 /**
@@ -83,14 +123,26 @@ test("Has the structure { success: true, payload: { hasAuthenticated: true, isAd
  *
  * This time the test has not been written for you, you'll need to write it from scratch.
  */
-async function getUsernames() {
-  return {
+
+test(`getUsernames has structure of { success: true, payload: an array of objects with the structure { username: any string }}`, async () => {
+  async function getUsernames() {
+    return {
+      success: true,
+      payload: [
+        { username: "A" },
+        { username: "B" },
+        { username: "C" },
+        { username: "D" },
+      ],
+    };
+  }
+  expect(await getUsernames()).toMatchObject({
     success: true,
     payload: [
-      { username: "A" },
-      { username: "B" },
-      { username: "C" },
-      { username: "D" },
+      { username: expect.any(String) },
+      { username: expect.any(String) },
+      { username: expect.any(String) },
+      { username: expect.any(String) },
     ],
-  };
-}
+  });
+});
