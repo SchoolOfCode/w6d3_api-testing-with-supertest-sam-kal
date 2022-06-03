@@ -59,6 +59,17 @@ describe(`get user by id`, () => {
     });
   });
 });
+
 // POST /users
+describe(`post new users`, () => {
+  test(`Given a new user, add it to the database`, async () => {
+    const res = await request(app).post("/users").send({ username: "Joe" });
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toEqual({
+      success: true,
+      payload: expect.any(Object),
+    });
+  });
+});
 
 // DELETE /users/:id
