@@ -73,3 +73,12 @@ describe(`post new users`, () => {
 });
 
 // DELETE /users/:id
+describe(`delete user`, () => {
+  test(`Given an id, delete user with that particular id`, async () => {
+    const res = await request(app).delete("/users/69");
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({
+      success: true,
+    });
+  });
+});
