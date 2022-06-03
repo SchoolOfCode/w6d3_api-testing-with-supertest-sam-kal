@@ -19,8 +19,23 @@ describe(`get users`, () => {
     });
   });
 });
-// GET /users?username=some_username
 
+// GET /users?username=some_username
+describe(`get user by username`, () => {
+  test(`Given a username, return user with that particular username`, async () => {
+    const res = await request(app).get("/users?username=Catherine");
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({
+      success: true,
+      payload: [
+        {
+          id: 92,
+          username: "Catherine",
+        },
+      ],
+    });
+  });
+});
 // GET /users/:id
 
 // POST /users
