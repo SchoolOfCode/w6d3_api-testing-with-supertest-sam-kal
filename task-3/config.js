@@ -3,7 +3,6 @@
 // For example, we'll get a helpful error message if an environment variable is required but not set/loaded.
 // Details: https://www.npmjs.com/package/env-var
 import env from "env-var";
-import pool from "pg";
 
 export const DB_HOST = env.get("PGHOST").required().asString();
 export const DB_USER = env.get("PGUSER").required().asString();
